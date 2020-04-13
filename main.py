@@ -1,7 +1,10 @@
+import threading
+
 import discord
 import datetime
 import asyncio
 import random
+from website.url import app
 
 id_channel_chatting = 695558777805471764
 member_list = []
@@ -90,4 +93,13 @@ async def update_members_list():
 
 client.loop.create_task(update_members_list())
 client.loop.create_task(time_message())
-client.run(token)
+
+
+def start():
+    client.run(token)
+
+
+if __name__ == '__main__':
+    th = threading.Thread(target=start)
+    th.start()
+    app.run(port=8080, host='127.0.0.1')
