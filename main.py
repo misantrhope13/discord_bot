@@ -1,10 +1,10 @@
 import threading
-
+from data.parametrs.get_data import get_result, list_1, list_2, list_3
 import discord
 import datetime
 import asyncio
 import random
-from website.url import app
+from data.website.url import app
 
 id_channel_chatting = 695558777805471764
 member_list = []
@@ -91,9 +91,18 @@ async def update_members_list():
         await asyncio.sleep(3600)
 
 
+async def update_data():
+    await client.wait_until_ready()
+    try:
+        get_result("data\parametrs\data.db")
+    except Exception as e:
+        print(e)
+        await asyncio.sleep(120)
+
+
+client.loop.create_task(update_data())
 client.loop.create_task(update_members_list())
 client.loop.create_task(time_message())
-
 
 def start():
     client.run(token)
