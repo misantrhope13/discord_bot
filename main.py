@@ -86,6 +86,10 @@ async def on_message(message):
             if parametr[0] == '1':
                 await channel.send(
                     list_words_1[1][int(parametr[1]) - 1] + " " + "-" + " " + list_words_1[2][int(parametr[1]) - 1])
+            elif parametr[0] == '2':
+                await channel.send(
+                        list_words_2[1][int(parametr[1]) - 1] + " " + "-" + " " + list_words_2[2][int(parametr[1]) - 1])
+
 
     else:
         print("Юзер {0.author} написал: {0.content}".format(message))
