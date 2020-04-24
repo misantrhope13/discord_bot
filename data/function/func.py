@@ -1,6 +1,6 @@
 from data.parametrs.get_data import get_result, list_words_1, id_1, list_words_2, id_2
-import discord
-import asyncio
+
+
 letters_1 = []
 letters_2 = []
 
