@@ -4,7 +4,7 @@ import datetime
 import asyncio
 import random
 
-from data.function.func import read_the_token,get_start
+from data.function.func import read_the_token, get_start
 from data.parametrs.get_data import list_words_1, list_words_2
 from data.website.url import app
 
@@ -76,6 +76,30 @@ async def on_message(message):
 
             with open('data/time/time_stats', "a") as f:
                 f.write(f"{time} {data}")
+        elif message.content.startswith('!help'):
+            embed = discord.Embed(
+                colour=discord.Colour.purple())
+            embed.set_author(name='!help')
+            embed.add_field(name='!random', value='Выбирает рандомного ученика, чтобы тот пошёл к доске.', inline=False)
+            embed.add_field(name='!hello', value='Взаимное приветсвие от бота.', inline=False)
+            embed.add_field(name='!list x',
+                            value='Выдаёт лист с id уроками определённого курса. Вместо x пишется год курса. ',
+                            inline=False)
+            embed.add_field(name='!get_url x y',
+                            value='Выдаёт ссылку на урок. Вместо x пишется год курса, вместо y - id урока.',
+                            inline=False)
+            embed.add_field(name='!question x',
+                            value='Бот спрашивает каждого любой вопрос, на который можно ответить да или нет. '
+                                  'Вместо x пишется ваш вопрос.',
+                            inline=False)
+            embed.add_field(name='!time_update x y',
+                            value='Настраивает спам сообщение как вам нужно. '
+                                  'Вместо x пишется время в формате: 00:00, а вместо y - 2 числа слитно - дни недели, '
+                                  'отчёт идёт с 0.',
+                            inline=False)
+
+            await message.author.send(embed=embed)
+
 
     else:
         print("Юзер {0.author} написал: {0.content}".format(message))
@@ -120,6 +144,7 @@ async def update_members_list():
     await client.wait_until_ready()
 
     try:
+
         count = 0
         users_list = client.get_all_members()
         for member in users_list:
