@@ -3,30 +3,17 @@ import discord
 import datetime
 import asyncio
 import random
-from flask import Flask, render_template
-from data.function.func import letters_1, letters_2, get_start, read_the_token
+
+from data.function.func import read_the_token,get_start
 from data.parametrs.get_data import list_words_1, list_words_2
+from data.website.url import app
 
 # server_id = 695558777360875581
-
+get_start()
 id_channel_chatting = 702860746941399091
 # Сюда ввести id канала, куда будет выводить бот сообщение по запросом из канал commands.
 
 member_list = []
-
-get_start()
-app = Flask(__name__)
-
-
-@app.route('/year/1')
-def year_1():
-    return render_template('index.html', letters=letters_1)
-
-
-@app.route('/year/2')
-def year_2():
-    return render_template('index.html', letters=letters_2)
-
 
 token = read_the_token()
 client = discord.Client()
@@ -39,7 +26,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global id_channel_chatting, member_list,count
+    global id_channel_chatting, member_list, count
     channel = client.get_channel(id_channel_chatting)
     true_users = ['misa#0364']
     channels_for_commands = ['commands']  # Список каналов в котором можно воспроизводить команды бота.
