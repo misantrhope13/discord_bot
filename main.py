@@ -1,31 +1,21 @@
 import threading
-
 import discord
 import datetime
 import asyncio
 import random
-from flask import Flask
-from flask import render_template
-from data.parametrs.get_data import get_result, list_words_1, id_1, list_words_2, id_2
+from flask import Flask, render_template
+from data.function.func import letters_1, letters_2, get_start, read_the_token
+from data.parametrs.get_data import list_words_1, list_words_2
 
-global app_start
-app_start = 0
+# server_id = 695558777360875581
+
 id_channel_chatting = 702860746941399091
 # Сюда ввести id канала, куда будет выводить бот сообщение по запросом из канал commands.
+
 member_list = []
-global list_words_1
-get_result('data/parametrs/data.db')
+
+get_start()
 app = Flask(__name__)
-letters_1 = []
-
-for i in range(len(id_1) // 3):
-    letter = str(list_words_1[0][i]) + ")" + " " + list_words_1[1][i]
-    letters_1.append(letter)
-
-letters_2 = []
-for i in range(len(id_2) // 3):
-    letter = str(list_words_2[0][i]) + ")" + " " + list_words_2[1][i]
-    letters_2.append(letter)
 
 
 @app.route('/year/1')
@@ -36,14 +26,6 @@ def year_1():
 @app.route('/year/2')
 def year_2():
     return render_template('index.html', letters=letters_2)
-
-
-# server_id = 695558777360875581
-
-def read_the_token():
-    with open('data/key/key.txt', 'r') as f:
-        lines = f.readlines()
-        return lines[0].strip()
 
 
 token = read_the_token()
@@ -57,7 +39,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global id_channel_chatting, member_list, app_start, count
+    global id_channel_chatting, member_list,count
     channel = client.get_channel(id_channel_chatting)
     true_users = ['misa#0364']
     channels_for_commands = ['commands']  # Список каналов в котором можно воспроизводить команды бота.
@@ -105,11 +87,8 @@ async def on_message(message):
             with open('data/time/time_stats', 'w') as f:
                 f.writelines(l[n:])
 
-            with open('data/time/time_stats',"a") as f:
+            with open('data/time/time_stats', "a") as f:
                 f.write(f"{time} {data}")
-
-
-
 
     else:
         print("Юзер {0.author} написал: {0.content}".format(message))
