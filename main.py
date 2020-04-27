@@ -30,6 +30,7 @@ async def on_message(message):
     channel = client.get_channel(id_channel_chatting)
     true_users = ['misa#0364']
     channels_for_commands = ['commands']  # Список каналов в котором можно воспроизводить команды бота.
+    # Можно добавлять как угодно
     if str(message.channel) in channels_for_commands and str(message.author) in true_users:
         if message.content.startswith("!hello"):
 
