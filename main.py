@@ -100,7 +100,6 @@ async def on_message(message):
 
             await message.author.send(embed=embed)
 
-
     else:
         print("Юзер {0.author} написал: {0.content}".format(message))
 
@@ -116,7 +115,6 @@ async def update_time_message():
             date_setting = times[1]
 
             return lines[0].strip()
-
 
     except Exception as e:
         print(e)
